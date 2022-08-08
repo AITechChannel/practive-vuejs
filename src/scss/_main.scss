@@ -1,0 +1,22 @@
+@use "./breakpoint" as *;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;1,300;1,400;1,600&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  @include tablet {
+    font-size: 90%;
+  }
+  @include mobile {
+    font-size: 80%;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}

@@ -1,0 +1,42 @@
+{
+  "name": "my-app-vue",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@braid/vue-formulate": "^2.5.3",
+    "@formkit/themes": "^1.0.0-beta.10",
+    "@formkit/vue": "^1.0.0-beta.10",
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-brands-svg-icons": "^6.1.2",
+    "@fortawesome/free-regular-svg-icons": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
+    "axios": "^0.27.2",
+    "query-string": "^7.1.1",
+    "vee-validate": "^4.6.2",
+    "vue": "^3.2.37",
+    "vue-axios": "^3.4.1",
+    "vue-i18n": "^9.2.2",
+    "vue-material-design-icons": "^5.1.2",
+    "vue-router": "^4.1.2",
+    "vuex": "^4.0.2",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.0.96",
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "prettier": "^2.5.1",
+    "sass": "^1.54.1",
+    "style-loader": "^3.3.1",
+    "vite": "^3.0.1"
+  }
+}
