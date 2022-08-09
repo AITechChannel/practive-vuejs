@@ -13,7 +13,9 @@ import { RouterLink, RouterView } from "vue-router";
     />
     <div class="wrapper">
       <nav>
-        <RouterLink v-for="item in nav" :to="`/${item}`">{{ item }}</RouterLink>
+        <RouterLink v-for="item in nav" :to="`/${item}`">{{
+          item.toUpperCase()
+        }}</RouterLink>
       </nav>
     </div>
   </header>
@@ -25,7 +27,7 @@ import { RouterLink, RouterView } from "vue-router";
 export default {
   data() {
     return {
-      nav: ["Home", "practice1", "practice2", "practice3", "practice4"],
+      nav: ["home", "practice1", "practice2", "practice3", "practice4"],
     };
   },
 };
@@ -68,7 +70,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: red;
+  color: #007bc3;
 }
 
 nav a.router-link-exact-active:hover {

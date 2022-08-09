@@ -16,7 +16,9 @@ library.add(faXmark, faPenToSquare, faFloppyDisk, faSquareCheck, faSortDown);
   <div class="container">
     <div class="tag" v-for="item in data">
       <span class="title">{{ item.name }}</span>
-      <span class="icon"><font-awesome-icon icon="fa-solid fa-xmark" /> </span>
+      <span class="icon" @click="$emit('delete', item.code, 'remove')"
+        ><font-awesome-icon icon="fa-solid fa-xmark" />
+      </span>
     </div>
   </div>
 </template>
@@ -26,13 +28,6 @@ export default {
   props: {
     data: Array,
   },
-  methods: {
-    onClickButton(data) {
-      console.log("click", data);
-    },
-  },
-
-  emits: ["select"],
 };
 </script>
 
@@ -40,28 +35,41 @@ export default {
 @use "../../scss/index.scss" as *;
 
 .container {
-  background: #ffffff;
+  background: $white;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 7px;
+  gap: 8px;
   width: 480px;
-  height: 48px;
+  min-height: 48px;
   border: 1px solid $gray-gray02;
   border-radius: 4px;
   margin-top: 8px;
-  margin-right: 4px;
+  box-sizing: border-box;
   .tag {
-    background: $gray-gray04;
+    background-color: $gray-gray04;
     border-radius: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+
+    // min-width: 150px;
   }
 
   .title {
     padding: 4px 4px 4px 16px;
-    background: $gray-gray04;
   }
 
   .icon {
     padding: 4px 10px 4px 10px;
     color: $text-black;
+    &:hover {
+      cursor: pointer;
+
+      color: $primary;
+    }
   }
 }
 </style>

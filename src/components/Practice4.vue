@@ -1,4 +1,4 @@
-<template><h1>hello</h1></template>
+<template><h1>Practice4</h1></template>
 <script>
 export default {
   data() {},

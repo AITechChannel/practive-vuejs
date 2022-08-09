@@ -13,6 +13,7 @@ library.add(faSquareCheck);
       name=""
       value="Bike"
       @click="$emit('select')"
+      :checked="checked"
     />
     <span>
       <font-awesome-icon class="icon" icon="fa-solid fa-square-check" />
@@ -24,7 +25,8 @@ library.add(faSquareCheck);
 
 <script>
 export default {
-  props: { title: String, description: String },
+  methods: {},
+  props: { title: String, description: String, checked: Boolean },
 };
 </script>
 
@@ -49,6 +51,8 @@ export default {
     border-radius: 3px;
     margin-right: 12px;
     position: relative;
+    transition: all ease 0.1s;
+
     .icon {
       position: absolute;
       left: -2px;
@@ -63,7 +67,7 @@ export default {
   }
 
   input:checked ~ span {
-    // border: none;
+    border: 1px solid $secondary;
     .icon {
       opacity: 1;
       transform: scale(1);

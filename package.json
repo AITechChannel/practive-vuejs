@@ -19,6 +19,7 @@
     "axios": "^0.27.2",
     "pc-vn": "^1.0.1",
     "query-string": "^7.1.1",
+    "sub-vn": "^0.0.2",
     "vee-validate": "^4.6.2",
     "vue": "^3.2.37",
     "vue-axios": "^3.4.1",

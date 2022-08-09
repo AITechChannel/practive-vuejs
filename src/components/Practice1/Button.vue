@@ -1,19 +1,4 @@
-<script setup>
-import { library } from "@fortawesome/fontawesome-svg-core";
-
-/* import font awesome icon component */
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-/* import specific icons */
-import {
-  faUserSecret,
-  faPenToSquare,
-  faFloppyDisk,
-  faSquareCheck,
-} from "@fortawesome/free-solid-svg-icons";
-
-library.add(faUserSecret, faPenToSquare, faFloppyDisk, faSquareCheck);
-</script>
+<script setup></script>
 
 <template>
   <button

@@ -9,9 +9,9 @@ import Button from "./Button.vue";
   <div class="container">
     <div class="list">
       <div v-for="item in provinces" class="item">
-        <Checkbox @select="$emit('select', item.code)">{{
-          item.name
-        }}</Checkbox>
+        <Checkbox @select="$emit('select', item.code)" :checked="item.checked"
+          >{{ item.name }}
+        </Checkbox>
       </div>
     </div>
     <div class="action">
@@ -33,7 +33,7 @@ import Button from "./Button.vue";
 
 <script>
 export default {
-  props: { provinces: Array, options: Array },
+  props: { provinces: Array, options: Array, checked: Boolean },
 
   methods: {},
 };
@@ -76,12 +76,14 @@ export default {
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: $gray-gray03;
+    height: 62px;
+
     border-radius: 6px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: $gray-gray02;
   }
 }
 </style>

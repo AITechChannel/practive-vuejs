@@ -8,4 +8,4 @@ import Practice1 from "../components/Practice1/Practice1.vue";
   </div>
 </template>
 
-<style></style>
+<style scoped lang="scss"></style>

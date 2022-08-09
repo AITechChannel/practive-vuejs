@@ -1,33 +1,43 @@
 <script setup>
 import pcVN from "pc-vn";
-import Checkbox from "./Checkbox.vue";
 import Modal from "./Modal.vue";
-
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import {
-  faXmark,
-  faPenToSquare,
-  faFloppyDisk,
-  faSquareCheck,
-  faSortDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSortDown } from "@fortawesome/free-solid-svg-icons";
 import DisplayOp from "./DisplayOp.vue";
-library.add(faXmark, faPenToSquare, faFloppyDisk, faSquareCheck, faSortDown);
+
+library.add(faSortDown);
 </script>
 
 <!-- ---------------------------------------------------------------->
 
 <template>
-  <div class="container">
+  <div class="practice1-container">
     <div class="input-container">
-      <input placeholder="Chọn tỉnh thành" @input="onChange" :value="input" />
+      <input
+        @focusin="(showModal = true), (showOp = false)"
+        placeholder="Chọn tỉnh thành"
+        @input="onChange"
+        :value="input"
+      />
       <span class="icon"
         ><font-awesome-icon icon="fa-solid fa-sort-down"
       /></span>
     </div>
-    <DisplayOp @select="select" :data="options" />
-    <Modal @select="select" :provinces="provinces" :options="options" />
+
+    <DisplayOp
+      v-if="showOp"
+      @select="select"
+      :data="options"
+      @delete="select"
+    />
+
+    <Modal
+      v-if="showModal"
+      @select="select"
+      :provinces="filter ? provincesFilter : provinceCheck"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -35,58 +45,99 @@ library.add(faXmark, faPenToSquare, faFloppyDisk, faSquareCheck, faSortDown);
 
 <script>
 export default {
-  created() {},
+  created() {
+    if (this.provinceCheck.length === 0) {
+      this.provinceCheck = this.provincesData;
+    }
+  },
 
   data() {
-    const provinces = pcVN.getProvinces();
+    const provincesData = pcVN.getProvinces();
 
     return {
+      showOp: false,
+      showModal: false,
+      checked: false,
+      filter: false,
       input: "",
-      provinces: provinces,
+      provincesData: provincesData,
+      provinceCheck: [],
+      provincesFilter: [],
+
       options: [],
     };
   },
+
   methods: {
-    select(data) {
-      const provinceSelector = this.provinces.find(
-        (province) => province.code === data
-      );
+    select(data, remove) {
+      console.log("option provinces:", this.options);
 
-      const checkItem = this.options.find((province) => province.code === data);
-
-      if (checkItem) {
-        const indexCheckItem = this.options.findIndex(
-          (province) => province.code === data
-        );
-        console.log(indexCheckItem);
-
-        this.options.splice(indexCheckItem, 1);
-      } else {
-        this.options.push(provinceSelector);
+      if (remove === "remove") {
+        if (this.options.length == 1) {
+          this.showOp = false;
+        }
       }
+      if (data === "agree") {
+        this.showModal = false;
+        this.showOp = true;
+      } else if (data === "cancel") {
+        this.showModal = false;
+        this.filter = false;
+      } else {
+        const provinceSelector = this.provincesData.find(
+          (e) => e.code === data
+        );
 
-      console.log(provinceSelector);
-      console.log("options", this.options);
+        const checkItem = this.options.find((e) => e.code === data);
+
+        if (checkItem) {
+          const indexCheckItem = this.options.findIndex((e) => e.code === data);
+
+          this.options.splice(indexCheckItem, 1);
+        } else {
+          this.options.push(provinceSelector);
+        }
+
+        const provinceCheck = this.provincesData.map((item) => {
+          if (this.options.includes(item)) {
+            return {
+              ...item,
+              checked: true,
+            };
+          } else {
+            return {
+              ...item,
+              checked: false,
+            };
+          }
+        });
+
+        this.provinceCheck = provinceCheck;
+      }
     },
 
-    // action(data) {},
-
     onChange(e) {
-      console.log(this.input);
-      this.input = e.target.value;
+      this.input = e.target.value.trim();
 
-      const curr = this.provinces.filter((province) =>
-        province.name.includes(this.input)
+      if (this.input !== "") {
+        this.filter = true;
+      } else {
+        this.filter = false;
+      }
+
+      const curr = this.provinceCheck.filter((province) =>
+        province.name.toLowerCase().match(this.input.toLowerCase())
       );
 
-      if (curr) {
-        this.provinces = curr;
+      if (curr.length > 0) {
+        this.provincesFilter = curr;
       } else {
-        this.provinces = this.provinces;
+        this.provincesFilter = [];
       }
     },
   },
-  emits: ["select"],
+
+  computed() {},
 };
 </script>
 
@@ -95,25 +146,26 @@ export default {
 <style scoped lang="scss">
 @use "../../scss/index.scss" as *;
 
-.container {
+.practice1-container {
+  margin: 0 auto;
+  width: 480px;
   input {
     background: #ffffff;
     display: flex;
     align-items: center;
-    // width: 480px;
     height: 48px;
     border: 1px solid $gray-gray02;
     border-radius: 4px;
     width: 100%;
-
     outline: none;
     color: $text-black;
     padding: 16px 40px 16px 10px;
+    font-size: 1rem;
+    font-weight: 400;
   }
 
   input::placeholder {
     font-family: "Noto Sans", sans-serif;
-    font-weight: 400;
     color: $gray-gray02;
   }
 
@@ -134,6 +186,9 @@ export default {
         align-items: center;
       }
     }
+  }
+  input:focus {
+    border: 1px solid $primary;
   }
 }
 </style>
