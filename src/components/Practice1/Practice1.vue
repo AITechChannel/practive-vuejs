@@ -1,5 +1,5 @@
-<!-- <script setup></script> -->
 <script setup>
+import pcVN from "pc-vn";
 import Checkbox from "./Checkbox.vue";
 import Modal from "./Modal.vue";
 
@@ -10,82 +10,129 @@ import {
   faPenToSquare,
   faFloppyDisk,
   faSquareCheck,
+  faSortDown,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faXmark, faPenToSquare, faFloppyDisk, faSquareCheck);
+import DisplayOp from "./DisplayOp.vue";
+library.add(faXmark, faPenToSquare, faFloppyDisk, faSquareCheck, faSortDown);
 </script>
+
+<!-- ---------------------------------------------------------------->
 
 <template>
   <div class="container">
-    <div class="search">
-      <div class="tag">
-        <span class="title">Hà Nội</span>
-        <span class="icon"
-          ><font-awesome-icon icon="fa-solid fa-xmark" />
-        </span>
-      </div>
-      <input placeholder="Chọn tỉnh thành" />
+    <div class="input-container">
+      <input placeholder="Chọn tỉnh thành" @input="onChange" :value="input" />
+      <span class="icon"
+        ><font-awesome-icon icon="fa-solid fa-sort-down"
+      /></span>
     </div>
-    <Modal @select="onClickButton" />
+    <DisplayOp @select="select" :data="options" />
+    <Modal @select="select" :provinces="provinces" :options="options" />
   </div>
 </template>
 
+<!-- ---------------------------------------------------------------->
+
 <script>
 export default {
-  data() {},
+  created() {},
 
+  data() {
+    const provinces = pcVN.getProvinces();
+
+    return {
+      input: "",
+      provinces: provinces,
+      options: [],
+    };
+  },
   methods: {
-    onClickButton(data) {
-      console.log("click", data);
+    select(data) {
+      const provinceSelector = this.provinces.find(
+        (province) => province.code === data
+      );
+
+      const checkItem = this.options.find((province) => province.code === data);
+
+      if (checkItem) {
+        const indexCheckItem = this.options.findIndex(
+          (province) => province.code === data
+        );
+        console.log(indexCheckItem);
+
+        this.options.splice(indexCheckItem, 1);
+      } else {
+        this.options.push(provinceSelector);
+      }
+
+      console.log(provinceSelector);
+      console.log("options", this.options);
+    },
+
+    // action(data) {},
+
+    onChange(e) {
+      console.log(this.input);
+      this.input = e.target.value;
+
+      const curr = this.provinces.filter((province) =>
+        province.name.includes(this.input)
+      );
+
+      if (curr) {
+        this.provinces = curr;
+      } else {
+        this.provinces = this.provinces;
+      }
     },
   },
-
   emits: ["select"],
 };
 </script>
+
+<!-- ---------------------------------------------------------------->
 
 <style scoped lang="scss">
 @use "../../scss/index.scss" as *;
 
 .container {
-  .search {
-    // background-color: #f8f8f8;
+  input {
     background: #ffffff;
-    /* Primary */
-
     display: flex;
     align-items: center;
-    width: 480px;
+    // width: 480px;
     height: 48px;
-
     border: 1px solid $gray-gray02;
-    // box-shadow: 0px 0px 8px rgba(0, 123, 195, 0.32);
     border-radius: 4px;
-    input {
-      flex: 1;
-      border: none;
-      outline: none;
-      color: $text-black;
-    }
+    width: 100%;
 
-    input::placeholder {
-      font-family: "Noto Sans", sans-serif;
-      font-weight: 400;
-      color: $gray-gray02;
-    }
+    outline: none;
+    color: $text-black;
+    padding: 16px 40px 16px 10px;
+  }
 
-    .tag {
-      background: $gray-gray04;
-      border-radius: 32px;
-    }
+  input::placeholder {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 400;
+    color: $gray-gray02;
+  }
 
-    .title {
-      padding: 4px 4px 4px 16px;
-      background: $gray-gray04;
-    }
+  .input-container {
+    position: relative;
+    width: 480px;
 
     .icon {
-      padding: 4px 10px 4px 10px;
-      color: $text-black;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-60%);
+      display: flex;
+      align-items: center;
+      font-size: 0.6rem;
+      span {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }

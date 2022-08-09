@@ -3,28 +3,43 @@ import Checkbox from "./Checkbox.vue";
 import Button from "./Button.vue";
 </script>
 
+<!-- ---------------------------------------------------------------->
+
 <template>
   <div class="container">
     <div class="list">
-      <div v-for="item in 30" class="item">
-        <Checkbox>Hà Nội</Checkbox>
+      <div v-for="item in provinces" class="item">
+        <Checkbox @select="$emit('select', item.code)">{{
+          item.name
+        }}</Checkbox>
       </div>
     </div>
     <div class="action">
-      <Button @select="$emit('select', 'agree')" :primary="true">Đồng ý</Button>
-      <Button @select="$emit('select', 'agree')" :disable="true">Đồng ý</Button>
+      <Button
+        v-if="options.length > 0"
+        @select="$emit('select', 'agree')"
+        :primary="true"
+        >Đồng ý</Button
+      >
+      <Button v-else @select="$emit('select', 'agree')" :disable="true"
+        >Đồng ý</Button
+      >
       <Button @select="$emit('select', 'cancel')" :text="true">Huỷ</Button>
     </div>
   </div>
 </template>
 
+<!-- ---------------------------------------------------------------->
+
 <script>
 export default {
-  data() {},
+  props: { provinces: Array, options: Array },
 
   methods: {},
 };
 </script>
+
+<!-- ---------------------------------------------------------------->
 
 <style scoped lang="scss">
 @use "../../scss/index.scss" as *;

@@ -7,7 +7,13 @@ library.add(faSquareCheck);
 
 <template>
   <label class="custom-checkbox">
-    <input type="checkbox" id="capital-input" name="" value="Bike" />
+    <input
+      type="checkbox"
+      id="capital-input"
+      name=""
+      value="Bike"
+      @click="$emit('select')"
+    />
     <span>
       <font-awesome-icon class="icon" icon="fa-solid fa-square-check" />
     </span>
@@ -18,9 +24,7 @@ library.add(faSquareCheck);
 
 <script>
 export default {
-  data() {},
   props: { title: String, description: String },
-  emit: ["select"],
 };
 </script>
 
