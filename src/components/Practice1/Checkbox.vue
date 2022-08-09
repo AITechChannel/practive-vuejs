@@ -1,16 +1,8 @@
 <script setup>
 import { library } from "@fortawesome/fontawesome-svg-core";
-
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-import {
-  faUserSecret,
-  faPenToSquare,
-  faFloppyDisk,
-  faSquareCheck,
-} from "@fortawesome/free-solid-svg-icons";
-
-library.add(faUserSecret, faPenToSquare, faFloppyDisk, faSquareCheck);
+import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
+library.add(faSquareCheck);
 </script>
 
 <template>
@@ -33,11 +25,13 @@ export default {
 </script>
 
 <style lang="scss">
+@use "../../scss/index.scss" as *;
+
 .custom-checkbox {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  line-height: 24px;
   font-size: 1rem;
   input {
     display: none;
@@ -47,16 +41,15 @@ export default {
     display: block;
     height: 16px;
     width: 16px;
-    border: 1px solid #333;
+    border: 1px solid $black;
     border-radius: 3px;
-    margin-right: 10px;
+    margin-right: 12px;
     position: relative;
     .icon {
       position: absolute;
       left: -2px;
       top: -2px;
-
-      color: #45d1c9;
+      color: $secondary;
       opacity: 0.2;
       transform: scale(0.5);
       height: 18px;
