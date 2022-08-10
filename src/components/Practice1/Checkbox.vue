@@ -5,6 +5,8 @@ import { faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 library.add(faSquareCheck);
 </script>
 
+<!-- ---------------------------------------------------------------->
+
 <template>
   <label class="custom-checkbox">
     <input
@@ -18,10 +20,11 @@ library.add(faSquareCheck);
     <span>
       <font-awesome-icon class="icon" icon="fa-solid fa-square-check" />
     </span>
-
     <slot></slot>
   </label>
 </template>
+
+<!-- ---------------------------------------------------------------->
 
 <script>
 export default {
@@ -30,18 +33,22 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<!-- ---------------------------------------------------------------->
+
+<style scoped lang="scss">
 @use "../../scss/index.scss" as *;
 
 .custom-checkbox {
   position: relative;
   display: flex;
   align-items: center;
-  line-height: 24px;
+  height: 40px;
   font-size: 1rem;
+  width: 100%;
+  padding-left: 19px;
+
   input {
     display: none;
-    // visibility: hidden;
   }
   span {
     display: block;
@@ -52,7 +59,6 @@ export default {
     margin-right: 12px;
     position: relative;
     transition: all ease 0.1s;
-
     .icon {
       position: absolute;
       left: -2px;
@@ -65,7 +71,6 @@ export default {
       transition: all ease 0.1s;
     }
   }
-
   input:checked ~ span {
     border: 1px solid $secondary;
     .icon {
@@ -73,7 +78,6 @@ export default {
       transform: scale(1);
     }
   }
-
   &:hover {
     cursor: pointer;
   }

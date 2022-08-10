@@ -1,5 +1,7 @@
 <script setup></script>
 
+<!-- ---------------------------------------------------------------->
+
 <template>
   <button
     @click="$emit('select')"
@@ -13,6 +15,8 @@
   </button>
 </template>
 
+<!-- ---------------------------------------------------------------->
+
 <script>
 export default {
   props: {
@@ -24,6 +28,8 @@ export default {
   },
 };
 </script>
+
+<!-- ---------------------------------------------------------------->
 
 <style scoped lang="scss">
 @use "../../scss/index.scss" as *;
@@ -46,8 +52,11 @@ button:first-of-type {
 
 .primary {
   background: $primary;
-
   color: $white;
+
+  &:hover {
+    background-color: #0189d8;
+  }
 }
 
 .disable {
@@ -62,5 +71,9 @@ button:first-of-type {
   background-color: white;
   width: 82px;
   height: 24px;
+
+  &:hover {
+    color: #0189d8;
+  }
 }
 </style>

@@ -1,27 +1,25 @@
 <!-- <script setup></script> -->
 <script setup>
 import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faFloppyDisk,
-  faPenToSquare,
-  faSortDown,
-  faSquareCheck,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faXmark, faPenToSquare, faFloppyDisk, faSquareCheck, faSortDown);
+library.add(faXmark);
 </script>
+
+<!-- ---------------------------------------------------------------->
 
 <template>
   <div class="container">
     <div class="tag" v-for="item in data">
       <span class="title">{{ item.name }}</span>
-      <span class="icon" @click="$emit('delete', item.code, 'remove')"
+      <span class="icon" @click="$emit('select', item.code, 'remove')"
         ><font-awesome-icon icon="fa-solid fa-xmark" />
       </span>
     </div>
   </div>
 </template>
+
+<!-- ---------------------------------------------------------------->
 
 <script>
 export default {
@@ -30,6 +28,8 @@ export default {
   },
 };
 </script>
+
+<!-- ---------------------------------------------------------------->
 
 <style scoped lang="scss">
 @use "../../scss/index.scss" as *;
@@ -54,14 +54,10 @@ export default {
     display: flex;
     align-items: center;
     margin-right: 4px;
-
-    // min-width: 150px;
   }
-
   .title {
     padding: 4px 4px 4px 16px;
   }
-
   .icon {
     padding: 4px 10px 4px 10px;
     color: $text-black;

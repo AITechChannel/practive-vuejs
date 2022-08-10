@@ -25,12 +25,7 @@ library.add(faSortDown);
       /></span>
     </div>
 
-    <DisplayOp
-      v-if="showOp"
-      @select="select"
-      :data="options"
-      @delete="select"
-    />
+    <DisplayOp v-if="showOp" @select="select" :data="options" />
 
     <Modal
       v-if="showModal"
@@ -69,35 +64,36 @@ export default {
   },
 
   methods: {
-    select(data, remove) {
+    select(payload1, payload2) {
       console.log("option provinces:", this.options);
-
-      if (remove === "remove") {
+      if (payload2 === "remove") {
         if (this.options.length == 1) {
           this.showOp = false;
         }
       }
-      if (data === "agree") {
+      if (payload1 === "agree") {
         this.showModal = false;
         this.showOp = true;
-      } else if (data === "cancel") {
+      } else if (payload1 === "cancel") {
         this.showModal = false;
         this.filter = false;
+        this.options = [];
+        this.provinceCheck = this.provincesData;
       } else {
         const provinceSelector = this.provincesData.find(
-          (e) => e.code === data
+          (e) => e.code === payload1
         );
 
-        const checkItem = this.options.find((e) => e.code === data);
+        const checkItem = this.options.find((e) => e.code === payload1);
 
         if (checkItem) {
-          const indexCheckItem = this.options.findIndex((e) => e.code === data);
-
+          const indexCheckItem = this.options.findIndex(
+            (e) => e.code === payload1
+          );
           this.options.splice(indexCheckItem, 1);
         } else {
           this.options.push(provinceSelector);
         }
-
         const provinceCheck = this.provincesData.map((item) => {
           if (this.options.includes(item)) {
             return {
@@ -111,7 +107,6 @@ export default {
             };
           }
         });
-
         this.provinceCheck = provinceCheck;
       }
     },
@@ -136,8 +131,6 @@ export default {
       }
     },
   },
-
-  computed() {},
 };
 </script>
 
@@ -175,7 +168,7 @@ export default {
 
     .icon {
       position: absolute;
-      right: 10px;
+      right: 22px;
       top: 50%;
       transform: translateY(-60%);
       display: flex;

@@ -8,7 +8,11 @@ import Button from "./Button.vue";
 <template>
   <div class="container">
     <div class="list">
-      <div v-for="item in provinces" class="item">
+      <div
+        v-for="(item, index) in provinces"
+        :key="`province_${index}`"
+        class="item"
+      >
         <Checkbox @select="$emit('select', item.code)" :checked="item.checked"
           >{{ item.name }}
         </Checkbox>
@@ -24,7 +28,12 @@ import Button from "./Button.vue";
       <Button v-else @select="$emit('select', 'agree')" :disable="true"
         >Đồng ý</Button
       >
-      <Button @select="$emit('select', 'cancel')" :text="true">Huỷ</Button>
+      <Button
+        class="btn-cancel"
+        @select="$emit('select', 'cancel')"
+        :text="true"
+        >Huỷ</Button
+      >
     </div>
   </div>
 </template>
@@ -50,20 +59,37 @@ export default {
   border-radius: 4px;
   height: 304px;
   width: 480px;
-  padding: 16px 4px 16px 16px;
+  padding: 8px 2px 16px 0;
   display: flex;
   flex-direction: column;
   .list {
     overflow-y: scroll;
-    flex: 1;
-    margin-bottom: 16px;
+    height: 240px;
+    width: 100%;
+    position: relative;
   }
 
   .item {
-    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    &:hover {
+      background-color: $hover;
+    }
+  }
+
+  .action {
+    margin-left: 16px;
+    margin-top: 8px;
+    flex: 1;
+  }
+
+  .btn-cancel {
+    color: $primary;
   }
 
   ::-webkit-scrollbar {
+    position: absolute;
     width: 8px;
     border-radius: 6px;
   }
@@ -77,7 +103,6 @@ export default {
   ::-webkit-scrollbar-thumb {
     background: $gray-gray03;
     height: 62px;
-
     border-radius: 6px;
   }
 
